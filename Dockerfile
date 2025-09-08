@@ -21,21 +21,17 @@ RUN apt-get update && apt-get install -y \
   gnupg \
   && rm -rf /var/lib/apt/lists/*
 
-# Create app directory
 WORKDIR /usr/src/app
 
-# Copy package files first for better Docker cache
 COPY package.json package-lock.json* ./
 
-# Install dependencies (this will download Chromium as part of puppeteer)
-RUN npm ci --unsafe-perm --no-audit --progress=false
+# Ensure Puppeteer will download Chromium and use npm install (more tolerant than npm ci)
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=false
+ENV PUPPETEER_PRODUCT=chrome
+RUN npm install --unsafe-perm --no-audit --progress=false && npm cache clean --force
 
-# Copy the rest of the app
 COPY . .
 
-# Expose port
 EXPOSE 3000
-
 ENV PORT=3000
-# Start the server
 CMD ["node", "server.js"]
