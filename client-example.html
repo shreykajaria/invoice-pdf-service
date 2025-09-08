@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Invoice PDF Client Test</title></head>
+<body>
+  <h2>Client test: generate invoice PDF</h2>
+  <button id="btn">Generate PDF (server)</button>
+  <script>
+    // Change this to your deployed server URL
+    const serverUrl = 'http://localhost:3000/api/pdf'; // local test
+    const apiKey = 'dev-secret-123'; // set to your PDF_API_KEY only for dev/testing
+
+    async function generate() {
+      const payload = {
+        invoice: {
+          companyName: "ACME Corp",
+          companyAddress: "1 Example St\nCity, Country",
+          companyEmail: "hello@acme.com",
+          companyPhone: "+1 555 5555",
+          companyTax: "GST 12345",
+          invoiceNumber: "INV-2025-001",
+          issueDate: "2025-09-01",
+          dueDate: "2025-09-15",
+          clientName: "Client Co",
+          clientAddress: "Client address line\nCity",
+          items: [
+            { description: "Design work", qty: 2, rate: 2000, discount: 0 },
+            { description: "Development work", qty: 5, rate: 1200, discount: 10 }
+          ],
+          totalDiscountType: "flat",
+          totalDiscountValue: 0,
+          taxPercent: 18,
+          shipping: 0,
+          currency: "INR",
+          notes: "Thank you for your business",
+          terms: "Payment due in 14 days"
+          // optional: logoDataURL, watermarkDataURL, signatureDataURL (data:... base64)
+        }
+      };
+
+      try {
+        const res = await fetch(serverUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-pdf-token': apiKey
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if(!res.ok) {
+          const txt = await res.text().catch(()=>res.statusText);
+          throw new Error('Server error: ' + res.status + ' ' + txt);
+        }
+
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = (payload.invoice.invoiceNumber || 'invoice') + '.pdf';
+        document.body.appendChild(a); a.click(); a.remove();
+        URL.revokeObjectURL(url);
+      } catch (err) {
+        alert('PDF generation failed: ' + (err.message || err));
+        console.error(err);
+      }
+    }
+
+    document.getElementById('btn').addEventListener('click', generate);
+  </script>
+</body>
+</html>

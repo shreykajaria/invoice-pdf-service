@@ -1,0 +1,443 @@
+:root { --accent:#0FA4AF; --dark:#0b1220; --muted:#6b7280; --bg:#f6f9fb; --card:#fff; --card-pad:20px; --paper-width:760px; }
+*{box-sizing:border-box;font-family:Montserrat,Arial,Helvetica,sans-serif}
+body{background:var(--bg);color:var(--dark);margin:0px}
+.controls{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:12px;padding:12px;border-radius:10px;background:#fff;border:1px solid #eef3f5}
+.btn{padding:8px 12px;border-radius:8px;border:none;cursor:pointer;font-weight:700}
+.btn-ghost{background:transparent;border:1px solid #e6eef2}
+.btn-primary{background:var(--accent);color:#fff}
+.inline{padding:8px 10px;border-radius:8px;border:1px solid #ccc;background:#fff}
+.small{font-size:13px;color:var(--muted)}
+.canvas{background:var(--card);border-radius:12px;padding:16px;box-shadow:0 12px 30px rgba(8,10,12,0.04)}
+.invoice-preview{position:relative;background:#fff;padding:20px;border-radius:12px;min-height:480px;overflow:hidden;border:1px solid #eef3f5;transition:all .18s ease}
+.invoice-top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.logo-preview{width:160px;height:60px;border-radius:10px;background:#fafcfd;display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden}
+.logo-preview img{max-width:100%;max-height:100%}
+.company-name{font-weight:800;font-size:20px}
+.smaller{font-size:13px;color:var(--muted)}
+.invoice-meta{text-align:right;min-width:180px}
+hr{border:none;height:1px;background:#eef3f5;margin:14px 0}
+.invoice-table{width:100%;border-collapse:collapse;margin-top:12px}
+.invoice-table th,.invoice-table td{border:1px solid #eef3f5;padding:10px;font-size:14px}
+.invoice-table thead th{background:#fbfeff}
+.btn-remove{font-weight:700;background:#fe161a;color:#fff;padding:6px 8px;border-radius:8px;border:none;cursor:pointer}
+.summary{width:360px;border-radius:8px;padding:12px;border:1px solid #eef3f5;background:#fff;box-shadow:0 6px 18px rgba(8,10,12,0.03)}
+.summary-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dashed #f1f5f7}
+.summary-row:last-child{border-bottom:none}
+.summary-row.total{font-weight:800;color:var(--accent);border-top:1px solid #eef3f5;padding-top:10px}
+.invoice-watermark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.06;z-index:0;pointer-events:none;text-align:center}
+.invoice-watermark img{max-width:360px;max-height:360px}
+.ce{white-space:pre-wrap;outline:none;min-height:18px;padding:2px;border-radius:4px}
+.payment-pill{display:inline-block;padding:6px 10px;border-radius:18px;border:1px solid #eef3f5;cursor:pointer;margin-right:6px;background:#fff}
+.payment-pill.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.hidden-file{display:none}
+.input-date { padding:6px 8px;border-radius:6px;border:1px solid #ccc;background:#fff; }
+.summary .inline{padding:6px 8px;font-size:13px;border-radius:6px}
+.left-col{flex:1;min-width:220px}
+.right-col{min-width:320px}
+.items-actions{display:flex;justify-content:flex-start;gap:8px;align-items:center}
+
+@media(max-width:900px){
+  .invoice-top{flex-direction:column}
+  .invoice-meta{width:100%;text-align:left}
+  .summary{width:100%;margin-top:12px}
+}
+
+/* Template CSS Code*/
+
+/* --------- Template 1: Modern Stripe --------- */
+/* Bold top stripe, inverted logo color, bright accent */
+
+
+.invoice-preview.template-bar {
+  border-top:6px solid var(--accent);
+  background:#fff;
+  padding:20px;
+  border-radius:8px;
+}
+.invoice-preview.template-bar .invoice-top {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+}
+.invoice-preview.template-bar .invoice-table th {
+  border-bottom:2px solid var(--accent);
+  color:var(--accent);
+}
+.invoice-preview.template-bar .summary-row:last-child {
+  font-size:18px;
+  font-weight:700;
+  color:var(--accent);
+}
+
+
+.invoice-preview.template-lines {
+  background:#fff;
+  border:1px solid #ddd;
+  padding:18px;
+}
+.invoice-preview.template-lines .invoice-top {
+  border-bottom:2px solid var(--accent);
+  padding-bottom:8px;
+  margin-bottom:14px;
+}
+.invoice-preview.template-lines .invoice-table th,
+.invoice-preview.template-lines .invoice-table td {
+  border:1px solid #ddd;
+}
+.invoice-preview.template-lines .summary-row:last-child {
+  border-top:2px solid var(--accent);
+  font-weight:700;
+}
+
+.invoice-preview.template-block {
+  background:#f8f8f8;
+  padding:20px;
+  border-radius:12px;
+}
+.invoice-preview.template-block .section {
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:8px;
+  padding:16px;
+  margin-bottom:12px;
+}
+.invoice-preview.template-block .invoice-table th {
+  background:#f3f4f6;
+  border:none;
+}
+.invoice-preview.template-block .summary {
+  background:#fff;
+  border:1px solid #ddd;
+  border-radius:8px;
+}
+.invoice-preview.template-block .summary-row:last-child {
+  background:#0FA4AF;
+  color:#fff;
+  border-radius:6px;
+  padding:6px 10px;
+}
+
+
+/* ===========================
+   PREMIUM TEMPLATES (paste at end of invoice.css)
+   6 designs: modern, studio, luxe, monograph, split, editorial
+   =========================== */
+
+/* shared baseline for nicer type */
+
+
+/* ---------- 2) Luxe (dark accents + gold) ---------- */
+.invoice-preview.template-luxe {
+  background:linear-gradient(180deg,#fffaf6,#fffaf6); 
+  padding:26px;
+  border-radius:14px;
+  color:#0b1220;
+}
+.invoice-preview.template-luxe .invoice-top { display:flex; justify-content:space-between; align-items:flex-start; gap:10px; }
+.invoice-preview.template-luxe .company { font-size:24px; font-weight:700; color:#0b1220; }
+.invoice-preview.template-luxe .tagline { color:#7b3f00; font-size:13px; margin-top:4px; }
+.invoice-preview.template-luxe .invoice-table thead th { color:#7b3f00; border-bottom:1px solid rgba(123,63,0,0.06); background:transparent; }
+.invoice-preview.template-luxe .summary-row:last-child { color:#7b3f00; font-weight:900; font-size:18px; }
+
+
+/* ==========================
+   NEW PREMIUM SaaS Templates CSS
+   ========================== */
+
+/* ---------- Template SaaS B: Shadowless Clean ---------- */
+.invoice-preview.template-saas-b {
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:10px;
+  padding:20px;
+}
+.invoice-preview.template-saas-b .invoice-top {
+  border-bottom:2px solid #e5e7eb;
+  padding-bottom:10px;
+  margin-bottom:14px;
+}
+.invoice-preview.template-saas-b .invoice-table th {
+  text-transform:uppercase;
+  font-size:12px;
+  color:#6b7280;
+}
+.invoice-preview.template-saas-b .invoice-table td {
+  border-bottom:1px dashed #e5e7eb;
+}
+.invoice-preview.template-saas-b .summary-row:last-child {
+  border-top:2px solid var(--accent, #0FA4AF);
+  font-weight:800;
+  color:var(--accent, #0FA4AF);
+}
+
+/* ---------- Template SaaS C: Accent Bar Left ---------- */
+.invoice-preview.template-saas-c {
+  background:#fff;
+  padding:22px;
+  border-radius:10px;
+  border-left:6px solid var(--accent, #0FA4AF);
+
+}
+.invoice-preview.template-saas-c .invoice-top {
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:14px;
+}
+.invoice-preview.template-saas-c .invoice-table th {
+  background:#f9fafb;
+  color:#374151;
+}
+.invoice-preview.template-saas-c .summary-row:last-child {
+  background:var(--accent, #0FA4AF);
+  color:#fff;
+  border-radius:6px;
+  padding:8px;
+  font-weight:700;
+}
+
+
+/* ---------- Premium: Boxed Items ---------- */
+.invoice-preview.template-premium-geo {
+  background:#fff;border-radius:12px;padding:18px;
+  display:block;box-shadow:0 12px 30px rgba(8,10,12,0.04);
+}
+.invoice-preview.template-premium-geo .invoice-top {
+  display:flex;gap:18px;align-items:flex-start;
+}
+.invoice-preview.template-premium-geo .invoice-left {
+  width:120px;min-width:120px;background:linear-gradient(180deg, rgba(0,0,0,0.03), transparent);
+  border-radius:10px;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+.invoice-preview.template-premium-geo .company-name {font-weight:700;color:#111;font-size:16px;}
+.invoice-preview.template-premium-geo .invoice-table {border-collapse:separate;border-spacing:0 8px;}
+.invoice-preview.template-premium-geo .invoice-table tbody tr {background:#fbfdff;border-radius:8px;}
+.invoice-preview.template-premium-geo .invoice-table th {color:#6b7280;font-size:12px;}
+
+
+/* ---------- Horizon (soft gradient header + floating totals) ---------- */
+.invoice-preview.template-horizon {
+  background:#fff;border-radius:14px;padding:20;overflow:hidden;
+}
+/* Horizon header uses --accent variants; JS will set --accent-strong / --accent-weak */
+.invoice-preview.template-horizon .invoice-top {
+  background: linear-gradient(90deg, var(--accent-strong, rgba(15,164,175,0.12)), var(--accent-weak, rgba(15,164,175,0.03)));
+  padding:18px 22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.invoice-preview.template-horizon .totals-float {
+  background:var(--accent,#0FA4AF); color:#fff; padding:10px 14px; border-radius:10px; font-weight:700;
+  box-shadow: 0 8px 24px rgba(10,120,130,0.12);
+}
+
+
+
+/* ---------- utility: ensure responsive fallback ---------- */
+@media (max-width:880px) {
+  .invoice-preview.template-split { grid-template-columns: 1fr; }
+  .invoice-preview { padding:16px; }
+  .invoice-preview .invoice-table th, .invoice-preview .invoice-table td { padding:8px; font-size:13px; }
+}
+
+
+/* helper used only for export-tight override */
+.export-tight { padding:18px !important; border-radius:4px !important; }
+
+/* ======= Responsive / Export-safe overrides (append to invoice.css) ======= */
+
+/* Make preview fluid but constrained for large screens */
+.invoice-preview {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Table: allow horizontal scrolling on small screens instead of hiding columns */
+.invoice-table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-collapse: collapse;
+}
+
+/* Ensure table cells render as table for desktop and export */
+.invoice-table th,
+.invoice-table td {
+  display: table-cell;
+  white-space: nowrap;
+  font-size: 14px;
+  padding: 10px;
+}
+
+/* Items + Summary wrapper — JS will add class and HTML includes it */
+.invoice-preview .items-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+/* Make buttons & inputs touch-friendly */
+@media (max-width: 900px) {
+  .btn, .inline { padding: 10px 12px; font-size: 15px; }
+  .invoice-preview { padding: 14px; }
+}
+
+/* On small screens (phones) stack Add Item area and Summary vertically */
+@media (max-width: 600px) {
+  .invoice-preview .items-summary-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .invoice-preview .items-summary-row .items-actions {
+    order: 1;
+    width: 100%;
+    margin-bottom: 8px;
+  }
+  .invoice-preview .items-summary-row .summary {
+    order: 2;
+    width: 100%;
+    margin-top: 6px;
+  }
+
+  /* Keep all item columns visible; user can horizontally scroll the table */
+  .invoice-table th,
+  .invoice-table td {
+    display: table-cell;
+    white-space: nowrap;
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  /* Allow description to wrap when table is scrolled to avoid horizontal overflow */
+  .invoice-table td:nth-child(1) {
+    white-space: normal;
+    word-break: break-word;
+    max-width: 320px;
+  }
+
+  /* Make Add Item button full-width on tiny screens */
+  .items-actions { width: 100%; }
+  .items-actions .btn { width: 100%; text-align: center; }
+
+  /* Scale watermark/signature slightly down on phones */
+  .invoice-watermark img { max-width: 220px; max-height: 220px; }
+  #signaturePlaceholder img { max-width: 160px; max-height: 64px; }
+}
+
+/* Small adjustments for very small displays */
+@media (max-width: 420px) {
+  .company-name { font-size: 16px; }
+  .invoice-table th, .invoice-table td { font-size: 13px; padding: 8px; }
+  .summary-row { padding: 6px 0; }
+}
+
+/* Ensure the export-tight reduction doesn't remove layout structure */
+.export-tight { padding: 12px !important; border-radius: 6px !important; }
+
+/* Accessibility focus states */
+.btn:focus, .inline:focus, .payment-pill:focus { outline: 3px solid rgba(15,164,175,0.16); outline-offset: 2px; }
+
+/* Header meta row styling — live preview (company right column) */
+.invoice-meta { width:100%; box-sizing:border-box; }
+.invoice-meta .meta-row { display:flex; justify-content:flex-end; align-items:center; gap:8px; line-height:1.2; }
+.invoice-meta .meta-row.meta-title { justify-content:flex-end; font-weight:800; font-size:18px; color:var(--accent); }
+.invoice-meta .meta-label { font-weight:600; color:var(--muted); flex: 0 0 auto; white-space:nowrap; }
+.invoice-meta .meta-value { flex: 0 0 auto; white-space:nowrap; }
+
+/* Make sure editable fields don't wrap label/value unexpectedly */
+.invoice-meta .ce, .invoice-meta input[type="date"], .invoice-meta .meta-value { font-size:14px; }
+
+/* Responsive fallback: allow wrapping if screen is very narrow */
+@media (max-width:420px){
+  .invoice-meta .meta-row { justify-content:flex-start; }
+  .invoice-meta .meta-label { margin-right:6px; }
+  .invoice-meta .meta-value { white-space:normal; word-break:break-word; max-width:160px; }
+}
+
+.invoice-meta .meta-row.meta-title { font-size:18px; font-weight:800; color:var(--accent); }
+.invoice-meta .meta-row .meta-label { font-size:13px; }
+.invoice-meta .meta-row .meta-value { font-size:14px; font-weight:700; }
+.invoice-meta .smaller .meta-value { font-weight:600; color:#111827; }
+
+
+/* ===== Invoice-number / header edit fixes ===== */
+
+/* Make meta-value editable area wider & horizontally scrollable so content isn't clipped */
+.invoice-meta .meta-row .meta-value { 
+  flex: 0 0 auto;                 /* prefer natural size but don't force shrink */
+  min-width: 140px;              /* keep editable area usable */
+  max-width: 320px;              /* avoids overflowing the header */
+  box-sizing: border-box;
+}
+
+/* Make the inline contenteditable element comfortable to edit */
+.invoice-meta .meta-value .ce {
+  display: inline-block;
+  min-width: 120px;
+  max-width: 100%;
+  padding: 4px 6px;
+  border-radius: 6px;
+  background: transparent;
+  outline: none;
+  white-space: nowrap;
+  overflow-x: auto;              /* allow horizontal scroll while editing */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Show scrollbar on focus for easier editing (optional visual hint) */
+.invoice-meta .meta-value .ce:focus {
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(15,164,175,0.06);
+}
+
+/* Mobile: allow the value to take remaining space to avoid being clipped */
+@media (max-width: 600px) {
+  .invoice-meta .meta-row { justify-content:flex-end; }
+  .invoice-meta .meta-row .meta-value {
+    flex: 1 1 auto;      /* grow to use available space */
+    min-width: 0;        /* allow to shrink if layout is tight */
+    text-align: right;
+  }
+  .invoice-meta .meta-value .ce {
+    white-space: normal; /* allow multi-line wrap if user taps and types long text */
+    overflow-x: visible;
+  }
+}
+/* ===== Summary: make discount row render inline (not vertical) ===== */
+
+/* Add a labeled class for discount row (we'll add the class from JS) */
+.summary-row.discount-row {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px;
+}
+
+/* Make the controls inline and vertically centered */
+.summary-row.discount-row .inline,
+.summary-row.discount-row select,
+.summary-row.discount-row input.inline {
+  display: inline-flex !important;
+  align-items: center !important;
+  vertical-align: middle !important;
+}
+
+/* Keep the Amount text aligned right */
+.summary-row.discount-row > div:last-child {
+  text-align: right !important;
+  white-space: nowrap;
+  min-width: 110px;
+}
+
+/* If small screen, allow the controls to wrap sensibly but keep them on one line where possible */
+@media (max-width:420px){
+  .summary-row.discount-row { gap: 8px; }
+  .summary-row.discount-row .inline, .summary-row.discount-row select, .summary-row.discount-row input.inline {
+    min-width: 80px;
+  }
+}
