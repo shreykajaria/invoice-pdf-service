@@ -1,7 +1,7 @@
-# Dockerfile - Node + Puppeteer
+# Dockerfile - Node + Puppeteer (Debian slim)
 FROM node:18-bullseye-slim
 
-# Install dependencies for Puppeteer/Chromium
+# Install libs required by Chromium
 RUN apt-get update && apt-get install -y \
   ca-certificates \
   fonts-liberation \
@@ -19,23 +19,23 @@ RUN apt-get update && apt-get install -y \
   libxrandr2 \
   wget \
   gnupg \
-  --no-install-recommends && \
-  rm -rf /var/lib/apt/lists/*
+  && rm -rf /var/lib/apt/lists/*
 
 # Create app directory
 WORKDIR /usr/src/app
 
-# Copy package.json and install (will download chromium as part of puppeteer)
+# Copy package files first for better Docker cache
 COPY package.json package-lock.json* ./
-RUN npm install --unsafe-perm --silent
 
-# Copy app
+# Install dependencies (this will download Chromium as part of puppeteer)
+RUN npm ci --unsafe-perm --no-audit --progress=false
+
+# Copy the rest of the app
 COPY . .
 
 # Expose port
 EXPOSE 3000
 
-# Default env (override PDF_API_KEY in docker run)
 ENV PORT=3000
-
+# Start the server
 CMD ["node", "server.js"]
