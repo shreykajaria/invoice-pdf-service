@@ -1,5 +1,3 @@
-node_modules
-npm-debug.log
-test-invoice.pdf
-.DS_Store
-.vscode
+git add Dockerfile .dockerignore
+git commit -m "Use npm install in Dockerfile and force puppeteer chromium download"
+git push origin main
